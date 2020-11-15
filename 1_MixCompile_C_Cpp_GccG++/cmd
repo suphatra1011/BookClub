@@ -1,0 +1,3 @@
+gcc -c -std=c99 -o main.o main.c
+g++ -c -std=c++0x -o hw_api.o hw_api.cpp
+gcc -o myapp main.o hw_api.o
