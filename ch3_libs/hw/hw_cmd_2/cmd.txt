@@ -1,0 +1,27 @@
+cd ./src && gcc -c -fPIC hello.c world.c
+ar -rv libfiles.a file1.o file2.o ranlib libfiles.a
+ar -rv libfiles.a hello.o world.o ranlib libfiles.a
+ar -rsv libfiles.a hello.o world.o
+
+gcc -c -fPIC func3.c 
+gcc -o libfiledyn.so -Wl,--whole-archive libfiles.a -Wl,--no-whole-archive -shared func3.o
+
+gcc -c main.c -I../inc/
+
+gcc -L. -lfiledyn -o my_app main.o libfiles.a
+
+# To move files to folders
+mv libfiles.a ../lib/
+mv libfiledyn.so ../lib/
+mv my_app ../
+
+## To confirm 
+ar -t libfiles.a
+ldd myapp
+
+# Refer Web
+https://blog.ramdoot.in/how-can-i-link-a-static-library-to-a-dynamic-library-e1f25c8095ef
+
+https://opensource.com/article/20/6/linux-libraries
+
+https://github.com/hANSIc99/library_sample/blob/master/Makefile
